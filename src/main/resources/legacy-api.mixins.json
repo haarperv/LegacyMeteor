@@ -1,0 +1,19 @@
+{
+  "required": true,
+  "package": "io.github.racoondog.legacyapi.mixin",
+  "compatibilityLevel": "JAVA_17",
+  "client": [
+    "errorreporting.EventBusMixin",
+    "errorreporting.MeteorClientMixin",
+    "errorreporting.ReflectInitMixin",
+    "errorreporting.hudspoof.HudRendererMixin",
+    "meteor.ISystems",
+    "meteor.TitleScreenCreditsMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  },
+  "mixins": [
+    "meteor.SystemsMixin"
+  ]
+}

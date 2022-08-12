@@ -1,27 +1,28 @@
 {
   "schemaVersion": 1,
-  "id": "addon-template",
+  "id": "legacy-api",
   "version": "${version}",
-  "name": "Addon Template",
-  "description": "An addon template for the Meteor addons.",
-  "authors": [
-    "seasnail"
-  ],
+  "name": "LegacyAPI",
+  "description": "Allows rudimentary usage of outdated Meteor Client addons.",
+  "authors": [ "Crosby" ],
   "contact": {
-    "repo": "https://github.com/MeteorDevelopment/meteor-addon-template"
+    "repo": "https://github.com/RacoonDog/LegacyAPI"
   },
-  "icon": "assets/template/icon.png",
+  "icon": "assets/legacy-api/icon.png",
   "environment": "client",
   "entrypoints": {
     "meteor": [
-      "com.example.addon.Addon"
+      "io.github.racoondog.legacyapi.LegacyAPIAddon"
     ]
   },
   "mixins": [
-    "addon.mixins.json"
+    "legacy-api.mixins.json"
   ],
+  "accessWidener": "legacy-api.accesswidener",
   "custom": {
-    "meteor-client:color": "225,25,25"
+    "modmenu": {
+      "badges": [ "library" ]
+    }
   },
   "depends": {
     "java": ">=17",
