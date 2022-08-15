@@ -8,6 +8,9 @@ import org.spongepowered.asm.mixin.Mixin;
 @Environment(EnvType.CLIENT)
 @Mixin(HudRenderer.class)
 public abstract class HudRendererMixin {
+    /**
+     * Readds the old addPostTask method.
+     */
     public void addPostTask(Runnable task) {
         HudRenderer.INSTANCE.post(task);
     }

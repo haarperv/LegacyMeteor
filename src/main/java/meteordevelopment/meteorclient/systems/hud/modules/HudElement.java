@@ -13,6 +13,10 @@ import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.nbt.NbtCompound;
 
+/**
+ * Spoofing old Meteor Client code in order to make addons using the old HUD system boot.
+ * Works as a wrapper for the new HudElement object.
+ */
 @Environment(EnvType.CLIENT)
 public class HudElement implements Snapper.Element, ISerializable<HudElement> {
 
@@ -38,6 +42,8 @@ public class HudElement implements Snapper.Element, ISerializable<HudElement> {
     public void tick(HudRenderer renderer) {}
 
     public void render(HudRenderer renderer) {}
+
+    public void onFontChanged() {}
 
     public boolean isInEditor() {
         return !Utils.canUpdate() || HudEditorScreen.isOpen();
@@ -105,6 +111,11 @@ public class HudElement implements Snapper.Element, ISerializable<HudElement> {
         @Override
         public void render(HudRenderer renderer) {
             outer.render(renderer);
+        }
+
+        @Override
+        public void onFontChanged() {
+            outer.onFontChanged();
         }
     }
 }

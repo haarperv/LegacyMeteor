@@ -12,12 +12,15 @@ import org.spongepowered.asm.mixin.injection.Redirect;
 @Environment(EnvType.CLIENT)
 @Mixin(value = MeteorClient.class, remap = false)
 public abstract class MeteorClientMixin {
+    /**
+     * Tries to use getClass().getPackageName() if the addon does not implement getPackage().
+     */
     @Redirect(method = "lambda$onInitializeClient$3", at = @At(value = "INVOKE", target = "Lmeteordevelopment/meteorclient/addons/MeteorAddon;getPackage()Ljava/lang/String;"))
     private static String reportOutdatedAddons(MeteorAddon instance) {
         try {
             return instance.getPackage();
         } catch (AbstractMethodError e) {
-            return ExceptionUtils.packageFallback(instance, e);
+            return ExceptionUtils.packageFallback(instance);
         }
     }
 }

@@ -12,6 +12,8 @@ jobs:
           distribution: adopt
       - name: Build
         run: ./gradlew build
+      - name: Obfuscation
+        run: java -jar ./jobf.jar -c ./jobf.conf
       - name: Release
         uses: marvinpinto/action-automatic-releases@latest
         with:

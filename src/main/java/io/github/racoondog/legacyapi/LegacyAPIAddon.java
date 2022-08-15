@@ -1,7 +1,11 @@
 package io.github.racoondog.legacyapi;
 
 import com.mojang.logging.LogUtils;
+import io.github.racoondog.legacyapi.config.LegacyAPISystem;
+import io.github.racoondog.legacyapi.config.LegacyAPITab;
+import io.github.racoondog.legacyapi.mixin.ISystems;
 import meteordevelopment.meteorclient.addons.MeteorAddon;
+import meteordevelopment.meteorclient.gui.tabs.Tabs;
 import meteordevelopment.meteorclient.systems.hud.HUD;
 import meteordevelopment.meteorclient.systems.hud.HudGroup;
 import meteordevelopment.meteorclient.utils.PostInit;
@@ -14,8 +18,8 @@ public class LegacyAPIAddon extends MeteorAddon {
     public static LegacyAPIAddon INSTANCE;
 
     @PreInit
-    private static void preInit() {
-        HUD.preInit();
+    public static void preInit() {
+        ISystems.invokeAdd(new HUD());
     }
 
     @Override
@@ -23,10 +27,13 @@ public class LegacyAPIAddon extends MeteorAddon {
         LOG.info("Initializing LegacyAPI");
 
         INSTANCE = this;
+
+        ISystems.invokeAdd(new LegacyAPISystem());
+        Tabs.add(new LegacyAPITab());
     }
 
     @PostInit
-    private static void postInit() {
+    public static void postInit() {
         HUD.postInit();
     }
 

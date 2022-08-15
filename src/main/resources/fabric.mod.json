@@ -8,20 +8,27 @@
   "contact": {
     "repo": "https://github.com/RacoonDog/LegacyAPI"
   },
+  "license": "ARR",
   "icon": "assets/legacy-api/icon.png",
   "environment": "client",
   "entrypoints": {
     "meteor": [
       "io.github.racoondog.legacyapi.LegacyAPIAddon"
+    ],
+    "modmenu": [
+      "io.github.racoondog.legacyapi.compat.ModMenuEntrypoint"
     ]
   },
   "mixins": [
-    "legacy-api.mixins.json"
+    "legacy-api.mixins.json",
+    "legacy-api-compat.mixins.json"
   ],
-  "accessWidener": "legacy-api.accesswidener",
   "custom": {
     "modmenu": {
-      "badges": [ "library" ]
+      "badges": [ "library" ],
+      "parent": {
+        "id": "meteor-client"
+      }
     }
   },
   "depends": {

@@ -19,6 +19,9 @@ import java.util.List;
 public abstract class EventBusMixin {
     @Unique private static final List<String> registeredPackages = new ArrayList<>();
 
+    /**
+     * Stops outdated addons from registering to events in their initializers.
+     */
     @Inject(method = "registerLambdaFactory", at = @At("HEAD"), cancellable = true)
     private void preventDuplicateRegistration(String packagePrefix, LambdaListener.Factory factory, CallbackInfo ci) {
         if (registeredPackages.contains(packagePrefix)) {

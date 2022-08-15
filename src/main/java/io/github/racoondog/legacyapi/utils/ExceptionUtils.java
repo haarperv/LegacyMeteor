@@ -9,6 +9,7 @@ import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.fabricmc.loader.impl.util.ExceptionUtil;
 
+import java.io.IOException;
 import java.util.List;
 
 @Environment(EnvType.CLIENT)
@@ -28,31 +29,53 @@ public final class ExceptionUtils {
             List<AddonExceptionType> list = loggedExceptions.get(hashCode);
             if (list.contains(type)) return false;
             list.add(type);
-        } else {
-            loggedExceptions.put(hashCode, Lists.newArrayList(type));
-        }
+        } else loggedExceptions.put(hashCode, Lists.newArrayList(type));
         return true;
     }
 
-    public static String packageFallback(MeteorAddon addon, AbstractMethodError e) {
-        try {
-            String packageName = addon.getClass().getPackageName();
-            if (logException(addon.name, AddonExceptionType.PACKAGE_NAME)) LegacyAPIAddon.LOG.error("'{}' does not implement abstract method 'getPackage'.\nHowever, a fallback has been used to allow the mod to run.", addon.name);
-            return packageName;
-        } catch (Throwable t) {
-            ExceptionUtils.throwException(e, "'%s' does not support the current version of Meteor Client and needs to be updated.".formatted(addon.name));
-        }
-        return null;
+    private static boolean logException(AddonExceptionType type) {
+        return logException(LegacyAPIAddon.INSTANCE, type);
     }
 
-    public static void duplicateRegistration(String packagePrefix) {
-        String[] tokens = packagePrefix.split("\\.");
-        String name = tokens[tokens.length - 1];
-        if (logException(name, AddonExceptionType.DUPLICATE_REGISTRATION)) LegacyAPIAddon.LOG.warn("Prevented duplicate lambda factory registration from Meteor addon '{}'.", name);
+    public static String packageFallback(MeteorAddon addon) {
+        String packageName = addon.getClass().getPackageName();
+        if (logException(addon.name, AddonExceptionType.PACKAGE_NAME)) {
+            LegacyAPIAddon.LOG.error("Using a fallback 'getPackage' implementation for Meteor addon '{}'.", addon.name);
+            AddonInfo.get(addon).outdated = true;
+        }
+        return packageName;
+    }
+
+    public static void duplicateRegistration(String packageName) {
+        packageName = PackageUtils.getLastDirectory(packageName);
+        if (logException(packageName, AddonExceptionType.DUPLICATE_REGISTRATION)) {
+            LegacyAPIAddon.LOG.warn("Prevented duplicate lambda factory registration from Meteor addon '{}'.", packageName);
+            AddonInfo.fromPackage(packageName).outdated = true;
+        }
+    }
+
+    public static void windowIconError(IOException e) {
+        if (logException(AddonExceptionType.WINDOW_ICON_ERROR)) {
+            LegacyAPIAddon.LOG.error("Could not return window icon to the default value.");
+            LegacyAPIAddon.LOG.trace(e.toString());
+        }
+    }
+
+    public static void legacyHud() {
+        if (logException(AddonExceptionType.LEGACY_HUD)) {
+            LegacyAPIAddon.LOG.warn("Using the legacy HUD system for compatibility reasons. Expect frequent errors.");
+        }
+    }
+
+    public static void rateLimit() {
+        if (logException(AddonExceptionType.GITHUB_API_RATE_LIMIT)) LegacyAPIAddon.LOG.warn("Could not check for addon updates due to reaching the rate limit.");
     }
 
     private enum AddonExceptionType {
         PACKAGE_NAME,
-        DUPLICATE_REGISTRATION
+        DUPLICATE_REGISTRATION,
+        WINDOW_ICON_ERROR,
+        LEGACY_HUD,
+        GITHUB_API_RATE_LIMIT
     }
 }
