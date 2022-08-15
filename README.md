@@ -1,8 +1,10 @@
-# Meteor Addon Template
+# LegacyAPI
 
-A template to allow easy usage of the Meteor Addon API.
+Big name for something that just lets you use outdated meteor addons
 
-### How to use:  
-- Clone this project
-- Use this template to create new modules/commands
-- Run the mod with Meteor.
+Still unusable:
+- Vector
+- Meteor Utils
+- Litematica Printer
+
+If you crash using this and ask for support anywhere I will literally bust your kneecaps
