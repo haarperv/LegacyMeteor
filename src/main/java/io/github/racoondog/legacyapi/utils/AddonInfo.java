@@ -13,6 +13,7 @@ import static meteordevelopment.meteorclient.MeteorClient.mc;
 @Environment(EnvType.CLIENT)
 public final class AddonInfo {
     private static final HashMap<MeteorAddon, AddonInfo> addonMap = new HashMap<>();
+    private static final int DEFAULT_WIDTH = mc.textRenderer.getWidth("Meteor Client by MineGame159, squidoodly & seasnail");
 
     public static AddonInfo get(MeteorAddon addon) {
         if (!addonMap.containsKey(addon)) {
@@ -25,7 +26,7 @@ public final class AddonInfo {
 
     public boolean redMark = false;
     public boolean updatedWidth = false;
-    public int width = mc.textRenderer.getWidth("Meteor Client by MineGame159, squidoodly & seasnail");
+    public int width = DEFAULT_WIDTH;
     public boolean outdated = false;
 
     private static final HashMap<String, AddonInfo> packageMap = new HashMap<>();
