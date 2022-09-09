@@ -1,6 +1,7 @@
 package io.github.racoondog.legacyapi.mixin.errorreporting;
 
 import io.github.racoondog.legacyapi.utils.ExceptionUtils;
+import io.github.racoondog.legacyapi.utils.PackageUtils;
 import meteordevelopment.orbit.EventBus;
 import meteordevelopment.orbit.listeners.LambdaListener;
 import net.fabricmc.api.EnvType;
@@ -25,7 +26,7 @@ public abstract class EventBusMixin {
     @Inject(method = "registerLambdaFactory", at = @At("HEAD"), cancellable = true)
     private void preventDuplicateRegistration(String packagePrefix, LambdaListener.Factory factory, CallbackInfo ci) {
         if (registeredPackages.contains(packagePrefix)) {
-            ExceptionUtils.duplicateRegistration(packagePrefix);
+            ExceptionUtils.logException(packagePrefix, ExceptionUtils.AddonExceptionType.DUPLICATE_REGISTRATION);
             ci.cancel();
         }
         registeredPackages.add(packagePrefix);

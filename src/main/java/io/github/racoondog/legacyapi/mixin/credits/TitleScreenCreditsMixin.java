@@ -110,7 +110,7 @@ public abstract class TitleScreenCreditsMixin {
         int widthName = mc.textRenderer.getWidth("Crosby");
 
         int x = mc.currentScreen.width - 3 - width - widthName - width1 - width2 - width3 - width4;
-        y = mc.currentScreen.height - 20;
+        y = mc.currentScreen.height - 22;
 
         mc.textRenderer.drawWithShadow(matrices, "Legacy ", x, y, WHITE);
         mc.textRenderer.drawWithShadow(matrices, "A", x + width1, y, Color.fromRGBA(186, 18, 0, 255));
@@ -142,7 +142,7 @@ public abstract class TitleScreenCreditsMixin {
             return instance.getCommit();
         } catch (NullPointerException e) {
             rateLimited = true;
-            ExceptionUtils.rateLimit();
+            ExceptionUtils.logGlobalException(ExceptionUtils.GlobalExceptionType.GITHUB_API_RATE_LIMIT);
             return null;
         }
     }

@@ -1,6 +1,6 @@
 package io.github.racoondog.legacyapi.mixin.errorreporting;
 
-import io.github.racoondog.legacyapi.utils.ExceptionUtils;
+import io.github.racoondog.legacyapi.utils.PackageUtils;
 import meteordevelopment.meteorclient.addons.MeteorAddon;
 import meteordevelopment.meteorclient.utils.ReflectInit;
 import net.fabricmc.api.EnvType;
@@ -17,10 +17,6 @@ public abstract class ReflectInitMixin {
      */
     @Redirect(method = "registerPackages", at = @At(value = "INVOKE", target = "Lmeteordevelopment/meteorclient/addons/MeteorAddon;getPackage()Ljava/lang/String;"))
     private static String reportOutdatedAddons(MeteorAddon instance) {
-        try {
-            return instance.getPackage();
-        } catch (AbstractMethodError e) {
-            return ExceptionUtils.packageFallback(instance);
-        }
+        return PackageUtils.getPackage(instance);
     }
 }

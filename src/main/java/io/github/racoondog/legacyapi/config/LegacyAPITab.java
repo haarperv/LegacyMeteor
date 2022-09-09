@@ -6,8 +6,11 @@ import meteordevelopment.meteorclient.gui.tabs.TabScreen;
 import meteordevelopment.meteorclient.gui.tabs.WindowTabScreen;
 import meteordevelopment.meteorclient.settings.Settings;
 import meteordevelopment.meteorclient.utils.misc.NbtUtils;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.minecraft.client.gui.screen.Screen;
 
+@Environment(EnvType.CLIENT)
 public class LegacyAPITab extends Tab {
     public LegacyAPITab() {
         super("Legacy API");

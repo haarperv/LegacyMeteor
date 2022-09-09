@@ -12,6 +12,7 @@ import static meteordevelopment.meteorclient.MeteorClient.mc;
 
 @Environment(EnvType.CLIENT)
 public final class AddonInfo {
+    //todo replace in favour of a MeteorAddon mixin
     private static final HashMap<MeteorAddon, AddonInfo> addonMap = new HashMap<>();
     private static final int DEFAULT_WIDTH = mc.textRenderer.getWidth("Meteor Client by MineGame159, squidoodly & seasnail");
 

@@ -1,5 +1,6 @@
 package io.github.racoondog.legacyapi.mixin.errorreporting.hudspoof;
 
+import io.github.racoondog.legacyapi.config.LegacyAPISystem;
 import meteordevelopment.meteorclient.systems.hud.HudRenderer;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -12,6 +13,6 @@ public abstract class HudRendererMixin {
      * Readds the old addPostTask method.
      */
     public void addPostTask(Runnable task) {
-        HudRenderer.INSTANCE.post(task);
+        if (LegacyAPISystem.get().enableLegacyGuiSystem.get()) HudRenderer.INSTANCE.post(task);
     }
 }

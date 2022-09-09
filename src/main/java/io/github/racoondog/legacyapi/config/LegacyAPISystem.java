@@ -7,6 +7,8 @@ import meteordevelopment.meteorclient.settings.SettingGroup;
 import meteordevelopment.meteorclient.settings.Settings;
 import meteordevelopment.meteorclient.systems.System;
 import meteordevelopment.meteorclient.systems.Systems;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.util.MacWindowUtil;
 import net.minecraft.nbt.NbtCompound;
@@ -18,6 +20,7 @@ import java.io.InputStream;
 
 import static meteordevelopment.meteorclient.MeteorClient.mc;
 
+@Environment(EnvType.CLIENT)
 public class LegacyAPISystem extends System<LegacyAPISystem> {
     public final Settings settings = new Settings();
 
@@ -48,6 +51,13 @@ public class LegacyAPISystem extends System<LegacyAPISystem> {
         .build()
     );
 
+    public final Setting<Boolean> enableLegacyGuiSystem = sgGeneral.add(new BoolSetting.Builder()
+        .name("enable-legacy-gui-system")
+        .description("Allows using addons which use the old GUI system.")
+        .defaultValue(false)
+        .build()
+    );
+
     public LegacyAPISystem() {
         super("legacy-api");
         if (preventWindowRename.get()) mc.updateWindowTitle();
@@ -69,7 +79,7 @@ public class LegacyAPISystem extends System<LegacyAPISystem> {
                 mc.getWindow().setIcon(inputStream, inputStream2);
             }
         } catch (IOException e) {
-            ExceptionUtils.windowIconError(e);
+            ExceptionUtils.logGlobalException(ExceptionUtils.GlobalExceptionType.WINDOW_ICON_ERROR);
         }
     }
 

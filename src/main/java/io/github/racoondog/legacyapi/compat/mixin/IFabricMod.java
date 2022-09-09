@@ -11,7 +11,7 @@ import org.spongepowered.asm.mixin.gen.Accessor;
 
 @Environment(EnvType.CLIENT)
 @Pseudo
-@Mixin(FabricMod.class)
+@Mixin(value = FabricMod.class, remap = false)
 public interface IFabricMod {
     @Accessor("metadata")
     @NotNull ModMetadata getMetadata();

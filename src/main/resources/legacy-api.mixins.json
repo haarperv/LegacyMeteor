@@ -6,6 +6,8 @@
     "ISystems",
     "configs.MinecraftClientMixin",
     "credits.TitleScreenCreditsMixin",
+    "errorreporting.CommandMixin",
+    "errorreporting.CrashReportMixin",
     "errorreporting.EventBusMixin",
     "errorreporting.MeteorClientMixin",
     "errorreporting.ReflectInitMixin",

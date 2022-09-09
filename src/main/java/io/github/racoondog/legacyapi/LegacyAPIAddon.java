@@ -10,15 +10,33 @@ import meteordevelopment.meteorclient.systems.hud.HUD;
 import meteordevelopment.meteorclient.systems.hud.HudGroup;
 import meteordevelopment.meteorclient.utils.PostInit;
 import meteordevelopment.meteorclient.utils.PreInit;
+import meteordevelopment.meteorclient.utils.misc.Version;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
+import net.fabricmc.loader.api.FabricLoader;
+import net.fabricmc.loader.api.metadata.ModMetadata;
 import org.slf4j.Logger;
 
+@Environment(EnvType.CLIENT)
 public class LegacyAPIAddon extends MeteorAddon {
+    public static final String MOD_ID = "legacy-api";
+    @SuppressWarnings("OptionalGetWithoutIsPresent")
+    public static final ModMetadata MOD_META = FabricLoader.getInstance().getModContainer(MOD_ID).get().getMetadata();
     public static final Logger LOG = LogUtils.getLogger();
-    public static final HudGroup LEGACY = new HudGroup("Legacy");
+    public static HudGroup LEGACY;
     public static LegacyAPIAddon INSTANCE;
+    public static final Version VERSION;
+
+    static {
+        String versionString = MOD_META.getVersion().getFriendlyString();
+        if (versionString.contains("-")) versionString = versionString.split("-")[0];
+
+        VERSION = new Version(versionString);
+    }
 
     @PreInit
     public static void preInit() {
+        ISystems.invokeAdd(new LegacyAPISystem());
         ISystems.invokeAdd(new HUD());
     }
 
@@ -28,13 +46,14 @@ public class LegacyAPIAddon extends MeteorAddon {
 
         INSTANCE = this;
 
-        ISystems.invokeAdd(new LegacyAPISystem());
         Tabs.add(new LegacyAPITab());
+
+        if (LegacyAPISystem.get().enableLegacyGuiSystem.get()) LEGACY = new HudGroup("Legacy");
     }
 
     @PostInit
     public static void postInit() {
-        HUD.postInit();
+        if (LegacyAPISystem.get().enableLegacyGuiSystem.get()) HUD.postInit();
     }
 
     @Override

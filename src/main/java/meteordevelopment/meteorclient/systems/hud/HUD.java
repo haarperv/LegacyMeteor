@@ -28,7 +28,7 @@ public class HUD extends System<HUD> {
         if (INSTANCE.elements.isEmpty()) return;
 
         for (var element : INSTANCE.elements) {
-            ExceptionUtils.legacyHud();
+            ExceptionUtils.logException(element.getClass(), ExceptionUtils.AddonExceptionType.LEGACY_HUD);
             Hud.get().register(new HudElementInfo<>(LegacyAPIAddon.LEGACY, element.name + "-UNSTABLE", element.desc, element::create));
         }
     }
