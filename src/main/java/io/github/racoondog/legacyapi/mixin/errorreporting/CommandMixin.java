@@ -13,6 +13,10 @@ import org.spongepowered.asm.mixin.injection.Redirect;
 @Environment(EnvType.CLIENT)
 @Mixin(value = Command.class, remap = false)
 public abstract class CommandMixin {
+    /**
+     * Prevents command registration if it uses outdated methods. Ex. PlayerArgumentType.player()
+     * @author Crosby
+     */
     @Redirect(method = "register", at = @At(value = "INVOKE", target = "Lmeteordevelopment/meteorclient/systems/commands/Command;build(Lcom/mojang/brigadier/builder/LiteralArgumentBuilder;)V"))
     private void catchError(Command instance, LiteralArgumentBuilder<CommandSource> commandSourceLiteralArgumentBuilder) {
         try {

@@ -29,6 +29,8 @@ public final class PackageUtils {
             if (index != limit) {
                 sb.append('.');
                 index++;
+            } else {
+                break;
             }
         }
         return sb.toString();

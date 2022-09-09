@@ -47,7 +47,6 @@ public abstract class TitleScreenCreditsMixin {
         initialized = true;
         for (var addon : AddonManager.ADDONS) {
             if (addon == LegacyAPIAddon.INSTANCE) continue;
-            AddonInfo info = AddonInfo.get(addon);
 
             StringBuilder sb = new StringBuilder(addon.name).append(" by ");
             for (int i = 0; i < addon.authors.length; i++) {
@@ -58,16 +57,17 @@ public abstract class TitleScreenCreditsMixin {
                 sb.append(addon.authors[i]);
             }
 
-            if (info.redMark) {
+            if (((AddonInfo) addon).hasRedMark()) {
                 sb.append("*");
-                info.updatedWidth = true;
+                ((AddonInfo) addon).setUpdatedWidth(true);
             }
 
-            info.width = mc.textRenderer.getWidth(sb.toString());
+            ((AddonInfo) addon).setWidth(mc.textRenderer.getWidth(sb.toString()));
             addons.add(addon);
         }
+        ((AddonInfo) MeteorClient.ADDON).setWidth(mc.textRenderer.getWidth("Meteor Client by MineGame159, squidoodly & seasnail"));
         addons.add(MeteorClient.ADDON);
-        addons.sort(Comparator.comparingInt(value -> -AddonInfo.get(value).width));
+        addons.sort(Comparator.comparingInt(addon -> -((AddonInfo) addon).getWidth()));
     }
     @Inject(method = "init", at = @At("TAIL"))
     private static void injectInit(CallbackInfo ci) {
@@ -83,15 +83,14 @@ public abstract class TitleScreenCreditsMixin {
         if (LegacyAPISystem.get().titleScreenModifications.get()) {
             if (!initialized) initialize();
             for (var addon : addons) {
-                AddonInfo info = AddonInfo.get(addon);
-                if (info.redMark && !info.updatedWidth) {
+                if (((AddonInfo) addon).hasRedMark() && !((AddonInfo) addon).hasUpdatedWidth()) {
                     //Update width to add red mark
-                    info.updatedWidth = true;
-                    info.width += mc.textRenderer.getWidth("*");
+                    ((AddonInfo) addon).setUpdatedWidth(true);
+                    ((AddonInfo) addon).setWidth(((AddonInfo) addon).getWidth() + mc.textRenderer.getWidth("*"));
                 }
 
-                if (info.outdated) {
-                    int x = mc.currentScreen.width - 3 - info.width - mc.textRenderer.getWidth("*");
+                if (((AddonInfo) addon).isOutdated()) {
+                    int x = mc.currentScreen.width - 3 - ((AddonInfo) addon).getWidth() - mc.textRenderer.getWidth("*");
 
                     mc.textRenderer.drawWithShadow(matrices, "*", x, y, 43520);
                 }
@@ -130,7 +129,7 @@ public abstract class TitleScreenCreditsMixin {
 
     @Inject(method = "lambda$init$1", at = @At(value = "INVOKE", target = "Ljava/util/List;add(ILjava/lang/Object;)V"))
     private static void markAsNotLatest(CallbackInfo ci) {
-        AddonInfo.get(curr).redMark = true;
+        ((AddonInfo) curr).setRedMark(true);
     }
 
     @Unique private static boolean rateLimited = false;

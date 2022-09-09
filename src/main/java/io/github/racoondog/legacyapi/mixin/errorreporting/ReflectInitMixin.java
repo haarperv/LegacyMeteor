@@ -14,6 +14,7 @@ import org.spongepowered.asm.mixin.injection.Redirect;
 public abstract class ReflectInitMixin {
     /**
      * Tries to use getClass().getPackageName() if the addon does not implement getPackage().
+     * @author Crosby
      */
     @Redirect(method = "registerPackages", at = @At(value = "INVOKE", target = "Lmeteordevelopment/meteorclient/addons/MeteorAddon;getPackage()Ljava/lang/String;"))
     private static String reportOutdatedAddons(MeteorAddon instance) {

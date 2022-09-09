@@ -9,6 +9,7 @@
     "errorreporting.CommandMixin",
     "errorreporting.CrashReportMixin",
     "errorreporting.EventBusMixin",
+    "errorreporting.MeteorAddonMixin",
     "errorreporting.MeteorClientMixin",
     "errorreporting.ReflectInitMixin",
     "errorreporting.hudspoof.HudRendererMixin"

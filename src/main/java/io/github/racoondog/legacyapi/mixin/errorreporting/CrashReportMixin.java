@@ -12,8 +12,13 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Environment(EnvType.CLIENT)
 @Mixin(CrashReport.class)
 public abstract class CrashReportMixin {
+    /**
+     * Adds LegacyAPI debug info to crash log.
+     * @author Crosby
+     */
     @Inject(method = "addStackTrace", at = @At("TAIL"))
     private void onAddStackTrace(StringBuilder sb, CallbackInfo info) {
+        sb.append('\n');
         ExceptionUtils.gatherDebugInfo(sb);
     }
 }

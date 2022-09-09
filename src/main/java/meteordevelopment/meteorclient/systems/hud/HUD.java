@@ -1,6 +1,5 @@
 package meteordevelopment.meteorclient.systems.hud;
 
-import io.github.racoondog.legacyapi.LegacyAPIAddon;
 import io.github.racoondog.legacyapi.utils.ExceptionUtils;
 import meteordevelopment.meteorclient.systems.System;
 import meteordevelopment.meteorclient.systems.hud.modules.HudElement;
@@ -29,7 +28,6 @@ public class HUD extends System<HUD> {
 
         for (var element : INSTANCE.elements) {
             ExceptionUtils.logException(element.getClass(), ExceptionUtils.AddonExceptionType.LEGACY_HUD);
-            Hud.get().register(new HudElementInfo<>(LegacyAPIAddon.LEGACY, element.name + "-UNSTABLE", element.desc, element::create));
         }
     }
 

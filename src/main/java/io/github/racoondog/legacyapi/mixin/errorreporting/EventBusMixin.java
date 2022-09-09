@@ -22,6 +22,7 @@ public abstract class EventBusMixin {
 
     /**
      * Stops outdated addons from registering to events in their initializers.
+     * @author Crosby
      */
     @Inject(method = "registerLambdaFactory", at = @At("HEAD"), cancellable = true)
     private void preventDuplicateRegistration(String packagePrefix, LambdaListener.Factory factory, CallbackInfo ci) {

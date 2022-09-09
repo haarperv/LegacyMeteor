@@ -21,8 +21,12 @@ public final class ExceptionUtils {
             sb.append("Addons:\n");
             for (var addon : AddonManager.ADDONS) {
                 sb.append("- ").append(addon.name);
-                String commit = addon.getCommit();
-                if (commit != null && !commit.isBlank()) sb.append("; ").append(commit);
+                try {
+                    String commit = addon.getCommit();
+                    if (commit != null && !commit.isBlank()) sb.append("; ").append(commit);
+                } catch (Exception e) {
+                    ExceptionUtils.logGlobalException(GlobalExceptionType.GITHUB_API_RATE_LIMIT);
+                }
                 sb.append('\n');
             }
         }
@@ -59,19 +63,40 @@ public final class ExceptionUtils {
         if (!globalExceptions.contains(type)) globalExceptions.add(type);
     }
 
-
     @SuppressWarnings("unchecked")
     public static <T> void logException(T key, AddonExceptionType type) {
+
+        //Transform key into either a MeteorAddon object or a relevant string identifier
         if (key instanceof String str) {
-            key = (T) PackageUtils.getLastDirectory(str);
+            MeteorAddon addon = fromString(str);
+            key = addon == null ? (T) PackageUtils.getLastDirectory(PackageUtils.trimPackageName(str)) : (T) addon;
         } else if (key instanceof Class<?> clazz) {
-            key = (T) PackageUtils.getLastDirectory(PackageUtils.trimPackageName(clazz.getPackageName()));
+            String pkg = clazz.getPackageName();
+            MeteorAddon addon = fromString(pkg);
+            key = addon == null ? (T) PackageUtils.getLastDirectory(PackageUtils.trimPackageName(pkg)) : (T) addon;
+        }
+
+        if (key instanceof MeteorAddon addon) {
+            ((AddonInfo) addon).setOutdated(true);
         }
 
         if (loggedExceptions.containsKey(key)) {
             List<AddonExceptionType> list = loggedExceptions.get(key);
             if (!list.contains(type)) list.add(type);
         } else loggedExceptions.put(key, Lists.newArrayList(type));
+    }
+
+    private static MeteorAddon fromString(String string) {
+        if (string.contains(".")) {
+            for (var addon : AddonManager.ADDONS) {
+                if (string.startsWith(PackageUtils.getPackage(addon))) return addon;
+            }
+        } else {
+            for (var addon : AddonManager.ADDONS) {
+                if (addon instanceof AddonInfo addonInfo && addonInfo.getId().equals(string)) return addon;
+            }
+        }
+        return null;
     }
 
     public enum AddonExceptionType {

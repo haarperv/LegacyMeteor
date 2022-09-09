@@ -24,6 +24,11 @@ public abstract class MinecraftClientMixin {
     @Shadow public abstract boolean isConnectedToRealms();
     @Shadow private @Nullable ServerInfo currentServerEntry;
 
+    /**
+     * Replaces window title impl with a copy of the vanilla one if preventWindowRename is true.
+     * Copies vanilla code to bypass mixins.
+     * @author Crosby
+     */
     @Inject(method = "getWindowTitle", at = @At("HEAD"), cancellable = true)
     private void preventWindowTitleModification(CallbackInfoReturnable<String> cir) {
         if (LegacyAPISystem.get() != null && LegacyAPISystem.get().preventWindowRename.get()) {

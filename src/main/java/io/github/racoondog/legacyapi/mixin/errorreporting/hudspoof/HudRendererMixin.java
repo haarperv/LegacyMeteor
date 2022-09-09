@@ -11,6 +11,7 @@ import org.spongepowered.asm.mixin.Mixin;
 public abstract class HudRendererMixin {
     /**
      * Readds the old addPostTask method.
+     * @author Crosby
      */
     public void addPostTask(Runnable task) {
         if (LegacyAPISystem.get().enableLegacyGuiSystem.get()) HudRenderer.INSTANCE.post(task);
