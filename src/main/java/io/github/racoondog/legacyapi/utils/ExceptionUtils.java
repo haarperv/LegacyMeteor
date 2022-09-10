@@ -21,9 +21,10 @@ public final class ExceptionUtils {
             sb.append("Addons:\n");
             for (var addon : AddonManager.ADDONS) {
                 sb.append("- ").append(addon.name);
+                if (((AddonInfo) addon).getVersion() != null) sb.append("; v").append(((AddonInfo) addon).getVersion());
                 try {
                     String commit = addon.getCommit();
-                    if (commit != null && !commit.isBlank()) sb.append("; ").append(commit);
+                    if (commit != null && !commit.isBlank()) sb.append("; commit ").append(commit);
                 } catch (Exception e) {
                     ExceptionUtils.logGlobalException(GlobalExceptionType.GITHUB_API_RATE_LIMIT);
                 }
@@ -32,9 +33,16 @@ public final class ExceptionUtils {
         }
 
         if (hasExceptions()) {
-            sb.append("Exceptions: \n");
+            sb.append("Exceptions:\n");
             for (var entry : loggedExceptions.entrySet()) {
                 appendExceptions(sb, entry.getKey(), entry.getValue());
+            }
+        }
+
+        if (!globalExceptions.isEmpty()) {
+            sb.append("Global Exceptions:\n");
+            for (var exception : globalExceptions) {
+                sb.append("- ").append(exception.description).append('\n');
             }
         }
     }

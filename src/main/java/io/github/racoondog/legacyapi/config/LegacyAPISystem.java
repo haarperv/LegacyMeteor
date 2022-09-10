@@ -51,13 +51,6 @@ public class LegacyAPISystem extends System<LegacyAPISystem> {
         .build()
     );
 
-    public final Setting<Boolean> enableLegacyGuiSystem = sgGeneral.add(new BoolSetting.Builder()
-        .name("enable-legacy-gui-system")
-        .description("Allows using addons which use the old GUI system.")
-        .defaultValue(false)
-        .build()
-    );
-
     public LegacyAPISystem() {
         super("legacy-api");
         if (preventWindowRename.get()) mc.updateWindowTitle();

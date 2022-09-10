@@ -19,4 +19,7 @@ public interface AddonInfo {
 
     boolean isOutdated();
     void setOutdated(boolean newOutdated);
+
+    String getVersion();
+    void setVersion(String newVersion);
 }

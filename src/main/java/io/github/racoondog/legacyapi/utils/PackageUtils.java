@@ -5,7 +5,6 @@ import meteordevelopment.meteorclient.addons.MeteorAddon;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 

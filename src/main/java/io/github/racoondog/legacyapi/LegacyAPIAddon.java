@@ -1,13 +1,14 @@
 package io.github.racoondog.legacyapi;
 
 import com.mojang.logging.LogUtils;
+import io.github.racoondog.legacyapi.commands.CrashCommand;
 import io.github.racoondog.legacyapi.config.LegacyAPISystem;
 import io.github.racoondog.legacyapi.config.LegacyAPITab;
 import io.github.racoondog.legacyapi.mixin.ISystems;
 import meteordevelopment.meteorclient.addons.MeteorAddon;
 import meteordevelopment.meteorclient.gui.tabs.Tabs;
+import meteordevelopment.meteorclient.systems.commands.Commands;
 import meteordevelopment.meteorclient.systems.hud.HUD;
-import meteordevelopment.meteorclient.systems.hud.HudGroup;
 import meteordevelopment.meteorclient.utils.PostInit;
 import meteordevelopment.meteorclient.utils.PreInit;
 import meteordevelopment.meteorclient.utils.misc.Version;
@@ -23,7 +24,6 @@ public class LegacyAPIAddon extends MeteorAddon {
     @SuppressWarnings("OptionalGetWithoutIsPresent")
     public static final ModMetadata MOD_META = FabricLoader.getInstance().getModContainer(MOD_ID).get().getMetadata();
     public static final Logger LOG = LogUtils.getLogger();
-    public static HudGroup LEGACY;
     public static LegacyAPIAddon INSTANCE;
     public static final Version VERSION;
 
@@ -48,12 +48,12 @@ public class LegacyAPIAddon extends MeteorAddon {
 
         Tabs.add(new LegacyAPITab());
 
-        if (LegacyAPISystem.get().enableLegacyGuiSystem.get()) LEGACY = new HudGroup("Legacy");
+        if (FabricLoader.getInstance().isDevelopmentEnvironment()) Commands.get().add( new CrashCommand() );
     }
 
     @PostInit
     public static void postInit() {
-        if (LegacyAPISystem.get().enableLegacyGuiSystem.get()) HUD.postInit();
+        HUD.postInit();
     }
 
     @Override

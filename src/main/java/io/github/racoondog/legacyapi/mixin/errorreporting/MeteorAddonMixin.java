@@ -25,6 +25,9 @@ public abstract class MeteorAddonMixin implements AddonInfo {
     @Unique
     private boolean outdated = false;
 
+    @Unique
+    private String version;
+
     @Override
     public String getId() {
         return this.id;
@@ -73,5 +76,15 @@ public abstract class MeteorAddonMixin implements AddonInfo {
     @Override
     public void setOutdated(boolean newOutdated) {
         this.outdated = newOutdated;
+    }
+
+    @Override
+    public String getVersion() {
+        return this.version;
+    }
+
+    @Override
+    public void setVersion(String newVersion) {
+        this.version = newVersion;
     }
 }
