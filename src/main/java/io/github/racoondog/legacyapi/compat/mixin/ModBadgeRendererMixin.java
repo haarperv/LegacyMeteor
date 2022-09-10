@@ -27,7 +27,7 @@ public abstract class ModBadgeRendererMixin {
         Mod mod = this.mod;
         if (!mod.isReal()) return;
         LoaderModMetadata meta = (LoaderModMetadata) ((IFabricMod) mod).getMetadata();
-        if (!meta.getEntrypointKeys().contains("meteor")) return;
-        drawBadge(matrices, Text.literal("Meteor").asOrderedText(), 0xFF913DE2, 0x99913DE2, mouseX, mouseY);
+        if (meta.getId().equals("meteor-client") || meta.getEntrypointKeys().contains("meteor"))
+            drawBadge(matrices, Text.literal("Meteor").asOrderedText(), 0xFF913DE2, 0x99913DE2, mouseX, mouseY);
     }
 }

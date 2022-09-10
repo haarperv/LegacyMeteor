@@ -7,20 +7,20 @@ import net.fabricmc.api.Environment;
 import net.minecraft.command.CommandSource;
 
 /**
- * Development environment command to test crash report
+ * Development environment related commands
  * @author Crosby
  */
 @Environment(EnvType.CLIENT)
-public class CrashCommand extends Command {
-    public CrashCommand() {
-        super("legacyapicrash", "Causes the client to crash");
+public class DevCommands extends Command {
+    public DevCommands() {
+        super("dev", "Dev related commands");
     }
 
     @Override
     public void build(LiteralArgumentBuilder<CommandSource> builder) {
-        builder.executes(context -> {
+        builder.then(literal("crash").executes(context -> {
             boolean bool = (Boolean) null;
             return 0;
-        });
+        }));
     }
 }

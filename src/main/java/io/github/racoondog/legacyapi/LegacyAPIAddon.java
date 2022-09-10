@@ -1,7 +1,7 @@
 package io.github.racoondog.legacyapi;
 
 import com.mojang.logging.LogUtils;
-import io.github.racoondog.legacyapi.commands.CrashCommand;
+import io.github.racoondog.legacyapi.commands.DevCommands;
 import io.github.racoondog.legacyapi.config.LegacyAPISystem;
 import io.github.racoondog.legacyapi.config.LegacyAPITab;
 import io.github.racoondog.legacyapi.mixin.ISystems;
@@ -48,7 +48,7 @@ public class LegacyAPIAddon extends MeteorAddon {
 
         Tabs.add(new LegacyAPITab());
 
-        if (FabricLoader.getInstance().isDevelopmentEnvironment()) Commands.get().add( new CrashCommand() );
+        if (FabricLoader.getInstance().isDevelopmentEnvironment()) Commands.get().add( new DevCommands() );
     }
 
     @PostInit
