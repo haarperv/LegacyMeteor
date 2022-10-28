@@ -1,6 +1,6 @@
 package meteordevelopment.meteorclient.systems.hud;
 
-import io.github.racoondog.legacyapi.utils.ExceptionUtils;
+import io.github.racoondog.legacymeteor.utils.ExceptionUtils;
 import meteordevelopment.meteorclient.systems.System;
 import meteordevelopment.meteorclient.systems.hud.modules.HudElement;
 import net.fabricmc.api.EnvType;

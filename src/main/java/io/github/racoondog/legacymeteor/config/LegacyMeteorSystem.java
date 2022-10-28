@@ -1,6 +1,6 @@
-package io.github.racoondog.legacyapi.config;
+package io.github.racoondog.legacymeteor.config;
 
-import io.github.racoondog.legacyapi.utils.ExceptionUtils;
+import io.github.racoondog.legacymeteor.utils.ExceptionUtils;
 import meteordevelopment.meteorclient.settings.BoolSetting;
 import meteordevelopment.meteorclient.settings.Setting;
 import meteordevelopment.meteorclient.settings.SettingGroup;
@@ -21,7 +21,7 @@ import java.io.InputStream;
 import static meteordevelopment.meteorclient.MeteorClient.mc;
 
 @Environment(EnvType.CLIENT)
-public class LegacyAPISystem extends System<LegacyAPISystem> {
+public class LegacyMeteorSystem extends System<LegacyMeteorSystem> {
     public final Settings settings = new Settings();
 
     private final SettingGroup sgGeneral = settings.getDefaultGroup();
@@ -51,14 +51,14 @@ public class LegacyAPISystem extends System<LegacyAPISystem> {
         .build()
     );
 
-    public LegacyAPISystem() {
-        super("legacy-api");
+    public LegacyMeteorSystem() {
+        super("legacy-meteor");
         if (preventWindowRename.get()) mc.updateWindowTitle();
         if (preventWindowIconChange.get()) updateIcon();
     }
 
-    public static LegacyAPISystem get() {
-        return Systems.get(LegacyAPISystem.class);
+    public static LegacyMeteorSystem get() {
+        return Systems.get(LegacyMeteorSystem.class);
     }
 
     private void updateIcon() {
@@ -86,7 +86,7 @@ public class LegacyAPISystem extends System<LegacyAPISystem> {
     }
 
     @Override
-    public LegacyAPISystem fromTag(NbtCompound tag) {
+    public LegacyMeteorSystem fromTag(NbtCompound tag) {
         if (tag.contains("settings")) settings.fromTag(tag.getCompound("settings"));
 
         return this;

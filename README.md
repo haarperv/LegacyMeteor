@@ -1,8 +1,8 @@
-# LegacyAPI
+# LegacyMeteor
 
-Big name for something that just lets you use outdated meteor addons
+Allows rudimentary usage of outdated Meteor Client addons.
 
-Still unusable:
+Still unusable (list not updated):
 - Vector
 - Meteor Utils
 - Litematica Printer

@@ -1,6 +1,6 @@
-package io.github.racoondog.legacyapi.mixin.configs;
+package io.github.racoondog.legacymeteor.mixin.configs;
 
-import io.github.racoondog.legacyapi.config.LegacyAPISystem;
+import io.github.racoondog.legacymeteor.config.LegacyMeteorSystem;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.SharedConstants;
@@ -31,7 +31,7 @@ public abstract class MinecraftClientMixin {
      */
     @Inject(method = "getWindowTitle", at = @At("HEAD"), cancellable = true)
     private void preventWindowTitleModification(CallbackInfoReturnable<String> cir) {
-        if (LegacyAPISystem.get() != null && LegacyAPISystem.get().preventWindowRename.get()) {
+        if (LegacyMeteorSystem.get() != null && LegacyMeteorSystem.get().preventWindowRename.get()) {
             //Default Minecraft implementation
             StringBuilder stringBuilder = new StringBuilder("Minecraft");
             if (MinecraftClient.getModStatus().isModded()) {

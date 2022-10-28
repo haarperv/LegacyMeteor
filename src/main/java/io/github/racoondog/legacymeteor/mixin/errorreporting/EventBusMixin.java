@@ -1,6 +1,6 @@
-package io.github.racoondog.legacyapi.mixin.errorreporting;
+package io.github.racoondog.legacymeteor.mixin.errorreporting;
 
-import io.github.racoondog.legacyapi.utils.ExceptionUtils;
+import io.github.racoondog.legacymeteor.utils.ExceptionUtils;
 import meteordevelopment.orbit.EventBus;
 import meteordevelopment.orbit.listeners.LambdaListener;
 import net.fabricmc.api.EnvType;

@@ -1,4 +1,4 @@
-package io.github.racoondog.legacyapi.mixin;
+package io.github.racoondog.legacymeteor.mixin;
 
 import meteordevelopment.meteorclient.systems.System;
 import meteordevelopment.meteorclient.systems.Systems;

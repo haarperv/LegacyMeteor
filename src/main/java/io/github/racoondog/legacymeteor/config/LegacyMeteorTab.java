@@ -1,4 +1,4 @@
-package io.github.racoondog.legacyapi.config;
+package io.github.racoondog.legacymeteor.config;
 
 import meteordevelopment.meteorclient.gui.GuiTheme;
 import meteordevelopment.meteorclient.gui.tabs.Tab;
@@ -11,28 +11,28 @@ import net.fabricmc.api.Environment;
 import net.minecraft.client.gui.screen.Screen;
 
 @Environment(EnvType.CLIENT)
-public class LegacyAPITab extends Tab {
-    public LegacyAPITab() {
-        super("Legacy API");
+public class LegacyMeteorTab extends Tab {
+    public LegacyMeteorTab() {
+        super("Legacy Meteor");
     }
 
     @Override
     public TabScreen createScreen(GuiTheme theme) {
-        return new LegacyAPIScreen(theme, this);
+        return new LegacyMeteorScreen(theme, this);
     }
 
     @Override
     public boolean isScreen(Screen screen) {
-        return screen instanceof LegacyAPIScreen;
+        return screen instanceof LegacyMeteorScreen;
     }
 
-    public static class LegacyAPIScreen extends WindowTabScreen {
+    public static class LegacyMeteorScreen extends WindowTabScreen {
         private final Settings settings;
 
-        public LegacyAPIScreen(GuiTheme theme, Tab tab) {
+        public LegacyMeteorScreen(GuiTheme theme, Tab tab) {
             super(theme, tab);
 
-            settings = LegacyAPISystem.get().settings;
+            settings = LegacyMeteorSystem.get().settings;
             settings.onActivated();
         }
 
@@ -43,12 +43,12 @@ public class LegacyAPITab extends Tab {
 
         @Override
         public boolean toClipboard() {
-            return NbtUtils.toClipboard(LegacyAPISystem.get());
+            return NbtUtils.toClipboard(LegacyMeteorSystem.get());
         }
 
         @Override
         public boolean fromClipboard() {
-            return NbtUtils.fromClipboard(LegacyAPISystem.get());
+            return NbtUtils.fromClipboard(LegacyMeteorSystem.get());
         }
     }
 }

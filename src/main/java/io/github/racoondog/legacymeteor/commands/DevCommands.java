@@ -1,4 +1,4 @@
-package io.github.racoondog.legacyapi.commands;
+package io.github.racoondog.legacymeteor.commands;
 
 import com.mojang.brigadier.builder.LiteralArgumentBuilder;
 import meteordevelopment.meteorclient.systems.commands.Command;

@@ -1,4 +1,4 @@
-package io.github.racoondog.legacyapi.utils;
+package io.github.racoondog.legacymeteor.utils;
 
 import com.google.common.collect.Lists;
 import meteordevelopment.meteorclient.addons.MeteorAddon;
@@ -15,7 +15,7 @@ public final class PackageUtils {
         return tokens[tokens.length - 1];
     }
 
-    private static final List<String> packagesToSkip = Lists.newArrayList("commands", "command", "systems", "huds", "hud");
+    private static final List<String> packagesToSkip = Lists.newArrayList("commands", "command", "huds", "hud", "systems", "system", "themes", "theme");
 
     public static String trimPackageName(String packageName) {
         String[] tokens = packageName.split("\\.");

@@ -1,4 +1,4 @@
-package io.github.racoondog.legacyapi.mixin.errorreporting.hudspoof;
+package io.github.racoondog.legacymeteor.mixin.errorreporting.hudspoof;
 
 import meteordevelopment.meteorclient.systems.hud.HudRenderer;
 import net.fabricmc.api.EnvType;

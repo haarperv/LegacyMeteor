@@ -1,9 +1,9 @@
-package io.github.racoondog.legacyapi.mixin.errorreporting;
+package io.github.racoondog.legacymeteor.mixin.errorreporting;
 
-import io.github.racoondog.legacyapi.LegacyAPIAddon;
-import io.github.racoondog.legacyapi.utils.AddonInfo;
-import io.github.racoondog.legacyapi.utils.ExceptionUtils;
-import io.github.racoondog.legacyapi.utils.PackageUtils;
+import io.github.racoondog.legacymeteor.LegacyMeteorAddon;
+import io.github.racoondog.legacymeteor.utils.AddonInfo;
+import io.github.racoondog.legacymeteor.utils.ExceptionUtils;
+import io.github.racoondog.legacymeteor.utils.PackageUtils;
 import meteordevelopment.meteorclient.MeteorClient;
 import meteordevelopment.meteorclient.addons.MeteorAddon;
 import net.fabricmc.api.EnvType;
@@ -36,7 +36,7 @@ public abstract class MeteorClientMixin {
     private void printDebugInfo(CallbackInfo ci) {
         StringBuilder sb = new StringBuilder();
         ExceptionUtils.gatherDebugInfo(sb);
-        sb.toString().lines().forEach(LegacyAPIAddon.LOG::info);
+        sb.toString().lines().forEach(LegacyMeteorAddon.LOG::info);
     }
 
     /**
@@ -48,7 +48,6 @@ public abstract class MeteorClientMixin {
         for (var entrypoint : FabricLoader.getInstance().getEntrypointContainers("meteor", MeteorAddon.class)) {
             ModMetadata metadata = entrypoint.getProvider().getMetadata();
             MeteorAddon addon = entrypoint.getEntrypoint();
-            ((AddonInfo) addon).setId(metadata.getId());
             ((AddonInfo) addon).setVersion(metadata.getVersion().getFriendlyString());
         }
     }

@@ -1,6 +1,6 @@
-package io.github.racoondog.legacyapi.mixin.errorreporting;
+package io.github.racoondog.legacymeteor.mixin.errorreporting;
 
-import io.github.racoondog.legacyapi.utils.ExceptionUtils;
+import io.github.racoondog.legacymeteor.utils.ExceptionUtils;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.util.crash.CrashReport;

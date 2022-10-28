@@ -1,7 +1,8 @@
-package io.github.racoondog.legacyapi.utils;
+package io.github.racoondog.legacymeteor.utils;
 
 import com.google.common.collect.Lists;
-import io.github.racoondog.legacyapi.LegacyAPIAddon;
+import io.github.racoondog.legacymeteor.LegacyMeteorAddon;
+import io.github.racoondog.meteorsharedaddonutils.utils.AddonUtils;
 import meteordevelopment.meteorclient.addons.AddonManager;
 import meteordevelopment.meteorclient.addons.MeteorAddon;
 import net.fabricmc.api.EnvType;
@@ -14,8 +15,8 @@ import java.util.List;
 @Environment(EnvType.CLIENT)
 public final class ExceptionUtils {
     public static void gatherDebugInfo(StringBuilder sb) {
-        sb.append("-- Legacy API --\n");
-        sb.append("Version: ").append(LegacyAPIAddon.VERSION).append('\n');
+        sb.append("-- Legacy Meteor --\n");
+        sb.append("Version: ").append(LegacyMeteorAddon.VERSION).append('\n');
 
         if (!AddonManager.ADDONS.isEmpty()) {
             sb.append("Addons:\n");
@@ -101,7 +102,7 @@ public final class ExceptionUtils {
             }
         } else {
             for (var addon : AddonManager.ADDONS) {
-                if (addon instanceof AddonInfo addonInfo && addonInfo.getId().equals(string)) return addon;
+                if (AddonUtils.getAddonId(addon).equals(string)) return addon;
             }
         }
         return null;

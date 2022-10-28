@@ -1,39 +1,36 @@
 {
   "schemaVersion": 1,
-  "id": "legacy-api",
+  "id": "legacy-meteor",
   "version": "${version}",
-  "name": "LegacyAPI",
+  "name": "LegacyMeteor",
   "description": "Allows rudimentary usage of outdated Meteor Client addons.",
   "authors": [ "Crosby" ],
   "contact": {
-    "repo": "https://github.com/RacoonDog/LegacyAPI"
+    "repo": "https://github.com/RacoonDog/LegacyMeteor",
+    "sources": "https://github.com/RacoonDog/LegacyMeteor",
+    "issues": "https://github.com/RacoonDog/LegacyMeteor/issues"
   },
   "license": "ARR",
-  "icon": "assets/legacy-api/icon.png",
+  "icon": "assets/legacy-meteor/icon.png",
   "environment": "client",
   "entrypoints": {
     "meteor": [
-      "io.github.racoondog.legacyapi.LegacyAPIAddon"
-    ],
-    "modmenu": [
-      "io.github.racoondog.legacyapi.compat.ModMenuEntrypoint"
+      "io.github.racoondog.legacymeteor.LegacyMeteorAddon"
     ]
   },
   "mixins": [
-    "legacy-api.mixins.json",
-    "legacy-api-compat.mixins.json"
+    "legacy-meteor.mixins.json"
   ],
   "custom": {
     "modmenu": {
-      "badges": [ "library" ],
-      "parent": {
-        "id": "meteor-client"
-      }
+      "badges": [ "library", "meteor" ]
     }
   },
   "depends": {
     "java": ">=17",
+    "fabricloader": ">=0.12",
     "minecraft": ">=${mc_version}",
+    "meteor-shared-addon-utils": "*",
     "meteor-client": "*"
   }
 }
