@@ -1,15 +1,12 @@
 package io.github.racoondog.legacymeteor.mixin.errorreporting;
 
 import io.github.racoondog.legacymeteor.LegacyMeteorAddon;
-import io.github.racoondog.legacymeteor.utils.AddonInfo;
 import io.github.racoondog.legacymeteor.utils.ExceptionUtils;
 import io.github.racoondog.legacymeteor.utils.PackageUtils;
 import meteordevelopment.meteorclient.MeteorClient;
 import meteordevelopment.meteorclient.addons.MeteorAddon;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.fabricmc.loader.api.FabricLoader;
-import net.fabricmc.loader.api.metadata.ModMetadata;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -37,18 +34,5 @@ public abstract class MeteorClientMixin {
         StringBuilder sb = new StringBuilder();
         ExceptionUtils.gatherDebugInfo(sb);
         sb.toString().lines().forEach(LegacyMeteorAddon.LOG::info);
-    }
-
-    /**
-     * Parses modmetas before addon code runs
-     * @author Crosby
-     */
-    @Inject(method = "onInitializeClient", at = @At(value = "INVOKE", target = "Lmeteordevelopment/meteorclient/addons/AddonManager;init()V"))
-    private void parseMeta(CallbackInfo ci) {
-        for (var entrypoint : FabricLoader.getInstance().getEntrypointContainers("meteor", MeteorAddon.class)) {
-            ModMetadata metadata = entrypoint.getProvider().getMetadata();
-            MeteorAddon addon = entrypoint.getEntrypoint();
-            ((AddonInfo) addon).setVersion(metadata.getVersion().getFriendlyString());
-        }
     }
 }

@@ -3,7 +3,6 @@
   "package": "io.github.racoondog.legacymeteor.mixin",
   "compatibilityLevel": "JAVA_17",
   "client": [
-    "ISystems",
     "configs.MinecraftClientMixin",
     "credits.TitleScreenCreditsMixin",
     "errorreporting.CommandMixin",

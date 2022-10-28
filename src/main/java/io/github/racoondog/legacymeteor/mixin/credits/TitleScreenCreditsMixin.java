@@ -35,7 +35,7 @@ public abstract class TitleScreenCreditsMixin {
         }
     }
 
-    @Redirect(method = "lambda$init$3", at = @At(value = "INVOKE", target = "Lmeteordevelopment/meteorclient/addons/MeteorAddon;getCommit()Ljava/lang/String;"))
+    @Redirect(method = "lambda$init$2", at = @At(value = "INVOKE", target = "Lmeteordevelopment/meteorclient/addons/MeteorAddon;getCommit()Ljava/lang/String;"))
     private static String catchRateLimit(MeteorAddon instance) {
         try {
             return instance.getCommit();

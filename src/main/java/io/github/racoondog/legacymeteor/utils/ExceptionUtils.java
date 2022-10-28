@@ -21,8 +21,7 @@ public final class ExceptionUtils {
         if (!AddonManager.ADDONS.isEmpty()) {
             sb.append("Addons:\n");
             for (var addon : AddonManager.ADDONS) {
-                sb.append("- ").append(addon.name);
-                if (((AddonInfo) addon).getVersion() != null) sb.append("; v").append(((AddonInfo) addon).getVersion());
+                sb.append("- ").append(addon.name).append("; v").append(AddonUtils.getAddonVersion(addon));
                 try {
                     String commit = addon.getCommit();
                     if (commit != null && !commit.isBlank()) sb.append("; commit ").append(commit);
